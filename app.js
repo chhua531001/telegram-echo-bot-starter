@@ -4,7 +4,7 @@ let request = require('request')
 let app = express()
 
 // https://core.telegram.org/bots#6-botfather
-const TOKEN = 'AAGyg6AUBDBWW8KVzL869aL_mYwGVfa4NPU'
+const TOKEN = '440412180:AAGyg6AUBDBWW8KVzL869aL_mYwGVfa4NPU'
 const PORT = process.env.PORT || 3000
 
 app.use(bodyParser.urlencoded({ extended: false }))
