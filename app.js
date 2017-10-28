@@ -15,6 +15,8 @@ app.listen(PORT, function () {
 
 // handler receiving messages
 app.post('/', function (req, res) {
+    console.log(req.body)
+    res.send()
 })
 
 // https://core.telegram.org/bots/api#sendmessage
