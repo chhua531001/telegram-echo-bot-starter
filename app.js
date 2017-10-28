@@ -2,6 +2,7 @@ let express = require('express')
 let bodyParser = require('body-parser')
 let request = require('request')
 let app = express()
+const botimize = require('botimize')('7972PM7L2Z2GWXI0BV0QBP082HQPRZYX', 'telegram');
 
 // https://core.telegram.org/bots#6-botfather
 const TOKEN = '440412180:AAGyg6AUBDBWW8KVzL869aL_mYwGVfa4NPU'
@@ -16,6 +17,7 @@ app.listen(PORT, function () {
 // handler receiving messages
 app.post('/', function (req, res) {
     console.log(req.body)
+    botimize.logIncoming(req.body)
     let chatId = req.body.message.chat.id
     let text = req.body.message.text
     sendMessage(chatId, text)
@@ -38,6 +40,8 @@ function sendMessage(chatId, text) {
         },
         json: true
     };
+
+    botimize.logOutgoing(options, {parse: 'request'})
 
     request(options, function (error, response, body) {
         if (error) {
