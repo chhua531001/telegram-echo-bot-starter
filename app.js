@@ -16,6 +16,9 @@ app.listen(PORT, function () {
 // handler receiving messages
 app.post('/', function (req, res) {
     console.log(req.body)
+    let chatId = req.body.message.chat.id
+    let text = req.body.message.text
+    sendMessage(chatId, text)
     res.send()
 })
 
