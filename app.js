@@ -1,21 +1,34 @@
 let express = require('express')
 let bodyParser = require('body-parser')
 let request = require('request')
+let HashMap = require('hashmap')
 let app = express()
 
-var foo = {
-    Hi: 'Hi',
-    你好: '你好',
-    Hello: 'Hello',
-    晚餐: '牛肉麵',
-    名字: '花志雄',
-    信箱: 'chhua531001@gmail.com'
-}
+var map = new HashMap();
 
-for (var i in foo) {
-    console.log(foo[i]);
-}
+// var foo = {
+//     Hi: 'Hi',
+//     你好: '你好',
+//     Hello: 'Hello',
+//     晚餐: '牛肉麵',
+//     名字: '花志雄',
+//     信箱: 'chhua531001@gmail.com'
+// }
 
+// for (var i in foo) {
+//     console.log(foo[i]);
+// }
+
+map.set("Hi", "Hi")
+.set("你好", "你好")
+.set("Hello", "Hello")
+.set("晚餐", "牛肉麵")
+.set("名字", "花志雄")
+.set("信箱", "chhua531001@gmail.com")
+
+map.forEach(function(value, key) {
+    console.log(key + " : " + value);
+});
 
 const botimize = require('botimize')('7972PM7L2Z2GWXI0BV0QBP082HQPRZYX', 'telegram');
 
@@ -37,12 +50,20 @@ app.post('/', function (req, res) {
     let text = req.body.message.text
 
 
-    for (var i in foo) {
-        // console.log(foo[i]);
-        if(text.indexOf(i) != -1) {
-            text = foo[i]
-        }    
-    }
+    // for (var i in foo) {
+    //     // console.log(foo[i]);
+    //     if(text.indexOf(i) != -1) {
+    //         text = foo[i]
+    //     }    
+    // }
+
+    map.forEach(function(value, key) {
+        
+        if(text.indexOf(key) != -1) {
+            text = value
+        }                
+        // console.log(key + " : " + value);
+    });
 
     sendMessage(chatId, text)
     res.send()
