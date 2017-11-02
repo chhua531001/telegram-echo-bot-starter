@@ -2,6 +2,21 @@ let express = require('express')
 let bodyParser = require('body-parser')
 let request = require('request')
 let app = express()
+
+var foo = {
+    Hi: 'Hi',
+    你好: '你好',
+    Hello: 'Hello',
+    晚餐: '牛肉麵',
+    名字: '花志雄',
+    信箱: 'chhua531001@gmail.com'
+}
+
+for (var i in foo) {
+    console.log(foo[i]);
+}
+
+
 const botimize = require('botimize')('7972PM7L2Z2GWXI0BV0QBP082HQPRZYX', 'telegram');
 
 // https://core.telegram.org/bots#6-botfather
@@ -20,6 +35,15 @@ app.post('/', function (req, res) {
     botimize.logIncoming(req.body)
     let chatId = req.body.message.chat.id
     let text = req.body.message.text
+
+
+    for (var i in foo) {
+        // console.log(foo[i]);
+        if(text.indexOf(i) != -1) {
+            text = foo[i]
+        }    
+    }
+
     sendMessage(chatId, text)
     res.send()
 })
